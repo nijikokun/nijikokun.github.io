@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <title>Puu.sh Roulette</title>
+
+  <script type="text/javascript" src="assets/jquery-git2.js"></script>
+  <script type='text/javascript' src='https://cdn.firebase.com/v0/firebase.js'></script>
+  <link rel="stylesheet" type="text/css" href="assets/result-light.css" />
+  <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+  <style type="text/css">
+    * { box-sizing: border-box; }
+    body, input { font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial; font-size: 12px; }
+    .stats { float: right; cursor: pointer; }
+    .stats:hover .loaded { display: block; }
+    .loaded { display: none; float: right; width: 200px; position: fixed; right: 0; padding-top: 20px; }
+    .loaded .inner { padding: 10px; background: hsl(0, 100%, 100%); height: 200px; overflow: auto; border-radius: 2px; }
+    .loaded:hover { display: block; }
+    h3 { margin: 0; }
+    padding { margin: 0; padding: 0; }
+    [hidden] { display: none; }
+    .pull-right { position: relative; right: 0; }
+    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 1; }
+    .modal { position: absolute; top: 0; left: 30%; width: 40%; background: white; border-radius: 0 0 2px 2px; z-index: 2; }
+    .modal .inner { padding: 10px; }
+    .modal footer { padding: 10px 10px 20px 10px; }
+    .modal footer .pull-right { margin-top: -7px; }
+    .loading i { color: #aaa; }
+    .console { font-family: monospace; color: #aaa; padding: 10px; }
+    .input { border: 2px solid #D5D5D5; color: #7D7D7D; padding: 6px 8px; border-radius: 2px; margin: 0; outline: none; width: 60%; }
+    .input.red { border-color: #F16C4E; }
+    .input.small { width: 40%; }
+    .input.large { width: 80%; }
+    .input.full { width: 100%; }
+    .not_valid {background: #FBD8DB !important; color: #90111A !important;}
+    .button { border: 2px solid #9F9F9F; color: #7E7E7E; padding: 5px 20px; border-radius: 2px; font-weight: 600; }
+    .button:hover { background: #A1A1A1; border-color: #A1A1A1; color: white; cursor: pointer; }
+    .button.success { border-color: #9FC866; color: #9FC866; }
+    .button.cancel { border-color: #F16C4E; color: #F27155; }
+    .button.hover-success:hover { background: #9FC866; border-color: #9FC866; color: white; }
+    .button.hover-cancel:hover { background: #F16C4E; border-color: #F16C4E; color: white; }
+    .button.hover-success:active { background: #9FC866; padding: 7px 22px; border-width: 0px; color: white; box-shadow: inset 0 2px 3px rgba(0,0,0,0.1); }
+    .button.hover-cancel:active { background: #F16C4E; padding: 7px 22px; border-width: 0px; color: white; box-shadow: inset 0 2px 3px rgba(0,0,0,0.1); }
+  </style>
+
+  <script type="text/javascript">//<![CDATA[ 
+  $(window).load(function(){
+    // Random Puu.sh Image Generator - For science!
+    //
+    // # Updates
+    //
+    // - Version (8)
+    //   - Move away from JSFiddle
+    //   - Use database for failed images to retaining data for quicker processing.
+    // - Version (7)
+    //   - Check against previously failed hashes to prevent retrying. DRY.
+    // - Version (6)
+    //   - Debug console logging w/ toggle functionality.
+    //   - DRY approach to some commonly used HTML elements
+    //   - Counting number of retries.
+    //   - Viewed variable now relevant no longer (attempts)
+    // - Version (5)
+    //   - Added loading spinner
+    //   - Disable button while loading
+    //
+    // author Nijiko Yonskai <nijikokun@gmail.com>
+    // license MIT
+    // copyright 2013
+
+    // External Storage
+    var db = {};
+
+    db.failed = new Firebase('https://prigma.firebaseIO.com/failed');
+    db.failed.initial = false;
+
+    db.tagged = new Firebase('https://prigma.firebaseIO.com/tagged');
+    db.tagged.initial = false;
+
+    // Local Stores / Elements
+    var viewed = 0, retries = 0;
+    var images = [], failed = [];
+    var debug = false;
+    var $input = $(".generate")
+      , $tag = $(".tag")
+      , $tag_input = $(".tags")
+      , $debug = $(".debug")
+      , $console = $(".console")
+      , $puush = $(".puush")
+      , $loading = $(".loading")
+      , $viewed = $(".stats span")
+      , $value = $(".value");
+
+    String.prototype.trim = function () {
+      return this.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    };
+
+    function cleanTags (original) {
+      var output = new Array();
+
+      for (var i = 0; i < original.length; i++){
+        if (typeof original[i] === 'string' && original[i] && original[i].trim().length > 3)
+          output.push(original[i].trim());
+      }
+
+      return output;
+    }
+
+    function updateFailed (chars) {
+      var imprint = db.failed.once('value', function (snapshot) {
+        var data = snapshot.val();
+
+        if (!data) data = [ chars ];
+        else if (data.indexOf(chars) != -1) return;
+        else data.push(chars);
+
+        db.failed.update(data);
+      });
+    }
+
+    // Taken from stackoverflow, forgot where. Google random string javascript to find it.
+    function randomString(len, charSet) {
+        charSet = charSet || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var randomString = '';
+        for (var i = 0; i < len; i++) {
+        	var randomPoz = Math.floor(Math.random() * charSet.length);
+        	randomString += charSet.substring(randomPoz,randomPoz+1);
+        }
+        return randomString;
+    }
+
+    function generate () {
+        retries++;
+        var chars = randomString(parseInt(randomString(1, '456'), 10));
+        log('Attempting [' + chars + ']... #' + retries);
+        
+        log.append('Checking...');
+        if (failed.indexOf(chars) != -1) {
+            log.append('✓');
+            return generate();
+        }
+        
+        log.append('✘');
+        $('.puush').attr('src', 'http://puu.sh/' + chars).attr('data-chars', chars);
+    }
+
+    function log (message) {
+        $console.append('<div>' + message + '</div>');
+    }
+
+    log.append = function (message) {
+        $('.console div').last().append(' ' + message);
+    };
+
+    $debug.on('click', function (e) {
+      debug = !!$('.debug:checked').length;
+      
+      if (!debug && $console.css('display') !== 'none')
+        $console.hide();
+      
+      if (debug && $loading.css('display') !== 'none')
+        $console.show();
+    });
+
+    $input.on('click', function (e) {
+        $console.empty();
+        $value.hide();
+        $tag.hide();
+
+        if (debug) $console.show();
+        
+        log('Hiding current image...');
+        $puush.hide();
+        
+        log('Showing loader...');
+        $loading.show();
+        
+        log('Disabling button...');
+        $(this).attr('disabled', true);
+
+        generate();
+        e.preventDefault();
+    });
+
+    var $modal = $('.modal')
+      , $overlay = $('.overlay');
+
+    $tag.on('click', function (e) {
+      $overlay.fadeIn(function () {
+        $modal.slideDown();
+      });
+
+      $('.cancel-button').on('click', function (e) {
+        $tag_input.val('');
+        $modal.slideUp(function () {
+          $overlay.fadeOut();
+        });
+      });
+
+      $('.submit-button').on('click', function (e) {
+        var tags = $tag_input.val();
+        var source = $puush.attr('src');
+        var chars = $puush.attr('data-chars');
+
+        tags = tags.split(/(?:\s*,\s*)+/);
+        tags = cleanTags(tags);
+
+        if (tags.length < 1) {
+          $tag_input.addClass('red');
+          return $tag_input.focus();
+        }
+
+        db.tagged.image = new Firebase('https://prigma.firebaseIO.com/tagged/' + chars);
+        db.tagged.image.once('value', function (snapshot) {
+          console.log('retrieved value from firebase');
+          var data = snapshot.val();
+
+          if (data && data.tags && data.tags.length > 0) {
+            for (var i = 0; i < data.tags.length; i++) {
+              if (tags.indexOf(data.tags[i]) == -1)
+                tags.push(data.tags[i]);
+            }
+          }
+
+          db.tagged.image.update({ tags: tags }, function () {
+            $modal.slideUp(function () {
+              $overlay.fadeOut();
+            });
+          });
+        });
+      });
+    });
+
+    $puush.error(function () {
+      generate();
+    });
+
+    $puush.load(function () {
+      var $this = $(this), $src = $this.attr('src'), $chars = $this.attr('data-chars');
+      if ($this.height() < 5 || $this.width() < 5) {
+          updateFailed($chars);
+          log.append('submitting to failure database.');
+          return generate();
+      }
+     
+      log('Image found... checking against already viewed...');
+      var $link = $('<a>').attr('target', '_blank').attr('href', $src).html($src);
+      if (images.indexOf($src) != -1) {
+        log.append('previously viewed image... skipping.')
+        return generate();
+      } else images.push($src), $('.loaded .inner').append($('<div>').html($link)[0].outerHTML);
+      
+      log('Image check passed.. Showing image...');
+      retries = 0;
+      viewed++;
+
+      $viewed.html(viewed + ' images viewed this session');
+      $value.html($link).show();
+      $tag.show();
+      $console.hide();
+      $this.show();
+      $loading.hide();
+      $input.attr('disabled', null);
+    });
+
+    db.failed.on('value', function (snapshot) {
+      failed = snapshot.val() || [];
+    });
+  });//]]>
+  </script>
+</head>
+<body>
+  <div class="overlay" hidden></div>
+  <div class="modal" hidden>
+    <div class="inner">
+      <p>Enter tags seperated by comma:</p>
+      <input class="input full tags" type="text" value="" />
+    </div>
+    <footer>
+      <a class="button success hover-success submit-button pull-right">Submit</a>
+      <a class="button hover-cancel cancel-button">Cancel</a>
+    </footer>
+  </div>
+
+  <div>
+    <p>
+      <strong>Random Puu.sh Image Generator</strong> - 
+      <em>For science!</em> - 
+      By <a href="http://nexua.org/">Nijikokun</a> - 
+      open-source under MIT license - 
+      2013
+    </p>
+  </div>
+
+  <div class="stats">
+    <span></span>
+    <div class="loaded">
+      <div class="inner"></div>
+    </div>
+  </div>
+
+  <input type="checkbox" class="debug" title="Debug mode?" />
+  <input type="submit" class="generate" value="generate" />
+  <span class="loading" hidden><i class="icon-spinner icon-spin icon-large"></i></span>
+  <span class="value"></span>
+  <input type="submit" class="tag" value="tag" hidden />
+  <div><img class="puush"></div>
+  <div class="console" hidden></div>
+</body>
+</html>

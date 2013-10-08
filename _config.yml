@@ -1,0 +1,4 @@
+auto: true
+markdown: redcarpet
+permalink: /:year/:title
+rdiscount extensions: [smart]

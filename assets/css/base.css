@@ -1,0 +1,171 @@
+.constraint {
+  width: 60%;
+  margin: 0 auto;
+}
+.antialiased {
+  font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+}
+* {
+  -moz-font-feature-settings: "liga=1,kern=1";
+  -webkit-font-feature-settings: "liga=1,kern=1";
+  -ms-font-feature-settings: "liga" 1, "kern" 1;
+  text-rendering: optimizeLegibility;
+}
+body {
+  background: white;
+  color: #222222;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans";
+  font-size: 140%;
+}
+a {
+  text-decoration: none;
+  color: #444444;
+  cursor: pointer;
+}
+a:hover {
+  color: #4b95d2;
+}
+li {
+  margin-bottom: 1em;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 1.25;
+  margin-bottom: 1.42382em;
+  font-weight: normal;
+}
+h1 {
+  margin: .97em 0 .5em;
+  line-height: 1.125em;
+  font-size: 1.8em;
+}
+h2 {
+  line-height: 1.2em;
+  margin-top: 1.4em;
+  margin-bottom: .7em;
+  font-size: 1.6em;
+}
+h3 {
+  margin: 1.7em 0 .85em;
+  line-height: 1.5em;
+  font-size: 1.4em;
+}
+h4 {
+  line-height: 1.12382em;
+  margin: .5em 0 1.3em;
+  font-size: 1.2em;
+}
+h5 {
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  line-height: 1.5em;
+  margin: 0 0 1.5em;
+  font-size: 1em;
+}
+h6 {
+  font-weight: bold;
+  margin: 0 0 1.5em;
+  font-size: 1em;
+}
+body > header {
+  background: #111111;
+  height: 45px;
+  color: white;
+}
+body > header nav {
+  width: 60%;
+  margin: 0 auto;
+  font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+}
+body > header nav ul,
+body > header nav ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+body > header nav ul li,
+body > header nav ol li {
+  float: right;
+}
+body > header nav ul li a,
+body > header nav ol li a {
+  color: white;
+  padding: 5px 0;
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: normal;
+  font-style: normal;
+}
+body > header nav ul li a:hover,
+body > header nav ol li a:hover {
+  color: #888888;
+}
+section {
+  width: 60%;
+  margin: 0 auto;
+}
+section article {
+  font-family: "Libre Baskerville";
+  line-height: 1.2em;
+}
+section article header {
+  font-family: "Vollkorn";
+}
+section article header h1 {
+  color: #111111;
+  margin-bottom: .2em;
+}
+section article header h1 a {
+  color: #111111;
+  border-bottom: none !important;
+}
+section article header time {
+  font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  display: block;
+  color: #888888;
+  margin-bottom: 1em;
+}
+section article img {
+  text-align: center;
+}
+section article li, section article p {
+  font-family: 'Open Sans';
+  font-weight: 300;
+  color: #222222;
+}
+section article p {
+  line-height: 1.7em;
+  margin: 0 0 1.5em 0;
+}
+section article li {
+  margin-bottom: 1em;
+}
+section article code {
+  font-family: "Droid Sans Mono";
+  font-size: .9em;
+  color: #444444;
+}
+section article a {
+  font-weight: 400;
+  border-bottom: 1px dotted #aaa;
+}
+section article a:hover {
+  border-bottom: none;
+}
+footer {
+  width: 60%;
+  margin: 0 auto;
+}

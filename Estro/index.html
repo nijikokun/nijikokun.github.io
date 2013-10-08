@@ -1,0 +1,72 @@
+<html>
+    <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Estro.js - Extended String Object</title>
+    <link rel="stylesheet" href="static/style.css" type="text/css" media="screen" charset="utf-8">
+    <script src="https://github.com/Nijikokun/Estro/raw/master/estro.js"></script>
+  </head>
+  <body>
+	<a id="github" href="https://github.com/Nijikokun/Estro">
+	  <span>Fork me on GitHub!</span>
+	  <span>Get better Strings!</span>
+	</a>
+    <article class="intro">
+      <header>
+        <h1>Estro<span>.js</span></h1>
+      </header>
+      <section>
+        <p>Implements needed and often used string functionality directly into strings.</p>
+        <p>Never overrides any native or custom implementations; it only adds functionality.</p>
+      </section>
+      <header>
+        <h2>Extended String Object</h2>
+      </header>
+    </article>
+
+    <article class="usage">
+      <header>
+        <h2>Usage</h2>
+      </header>
+      <section>
+        <p>Include the <a href="https://github.com/Nijikokun/Estro/raw/master/estro.js">estro.js</a> source file before any JavaScript in which you wish to use the Prototype methods.</p>
+      </section>
+    </article>
+
+    <article class="methods">
+      <header>
+        <h2>Methods</h2>
+      </header>
+      <section>
+        <ul>
+            <li><p><a href="#" onClick="alert('\'hello\'.compareTo(\'hi\'): ' + 'hello'.compareTo('hi'));return false;">String.compareTo</a> Compare one string to another</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.equals(\'hello\'): ' + 'hello'.equals('hello'));return false;">String.equals</a> Check one string against another.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.equalsIgnoreCase(\'hElLo\'): ' + 'hello'.equalsIgnoreCase('hElLo'));return false;">String.equalsIgnoreCase</a> Check one string against another without case sensitivity.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.startsWith(\'hell\'): ' + 'hello'.startsWith('hell'));return false;">String.startsWith</a> Check to see if a string starts with the given string.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.endsWith(\'lo\'): ' + 'hello'.endsWith('lo'));return false;">String.endsWith</a> Check to see if a string ends with the given string.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.contains(\'ll\'): ' + 'hello'.contains('ll'));return false;">String.contains</a> Check to see if a string contains a given string.</p></li>
+            <li><p><a href="#" onClick="alert('\' hello \'.trim(): ' + ' hello '.trim());return false;">String.trim</a> Trim the string of whitespace. Returns: String</p></li>
+            <li><p><a href="#" onClick="alert('\' hello\'.trimLeft(): ' + ' hello'.trimLeft());return false;">String.trimLeft</a> Trim the left of the string of whitespace. Returns: String</p></li>
+            <li><p><a href="#" onClick="alert('\'hello \'.trimRight(): ' + 'hello '.trimRight());return false;">String.trimRight</a> Trim the right of the string of whitespace. Returns: String</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.isEmpty(): ' + 'hello'.isEmpty());return false;">String.isEmpty</a> Check to see if the string is empty, and really empty.</p></li>
+            <li><p><a href="#" onClick="alert('\'\'.isBlank(): ' + ''.isBlank());return false;">String.isBlank</a> Check to see if the string is null, undefined, blank.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.reverse(): ' + 'hello'.reverse());return false;">String.reverse</a> Reverses string.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello \'.repeat(3): ' + 'hello '.repeat(3));return false;">String.repeat</a> Repeat string n times</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.capitalize(): ' + 'hello'.capitalize());return false;">String.capitalize</a> Capitalize each word in the string and lower the rest.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello there\'.camelize(): ' + 'hello there'.camelize());return false;">String.camelize</a> CamelCase strings.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello there\'.dasherize(): ' + 'hello there'.dasherize());return false;">String.dasherize</a> Hyphenate Strings.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello there\'.underscore(): ' + 'hello there'.underscore());return false;">String.underscore</a> Underscore strings.</p></li>
+            <li><p><a href="#" onClick="alert('\'Hi %{name}\'.bind({\'name\': \'Estro\'}): ' + 'Hi %{name}'.bind({'name': 'Estro'}));return false;">String.bind</a> Small template layer / printf.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.extract(/e/i, 0): ' + 'hello'.extract(/e/i, 0));return false;">String.extract</a> Extract data into an array based on regex and group.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.toInt(): ' + 'hello'.toInt());return false;">String.toInt</a> Convert string into numeric value.</p></li>
+            <li><p><a href="#" onClick="alert('\'hello\'.toHash(): ' + 'hello'.toHash());return false;">String.toHash</a> Converts the string to a hashcode. Based on Java.</p></li>
+        </ul>
+      </section>
+    </article>
+
+    <footer>
+      <ul>
+        <li><a href="https://github.com/Nijikokun/Estro">Source</a></li>
+        <li><a href="http://nijikokun.github.com/Estro/docs/">Source Doc</a></li>
+      </ul>
+    </footer>
+</body>

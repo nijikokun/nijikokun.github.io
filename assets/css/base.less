@@ -1,0 +1,148 @@
+@max-width: 60%;
+
+@primary: #4B95D2;
+@base: #222222;
+@inset: #111111;
+@middle: #444444;
+@offset: #888888;
+
+.constraint {
+  width: @max-width;
+  margin: 0 auto;
+}
+
+.antialiased {
+  font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  -moz-font-feature-settings: "liga=1,kern=1";
+  -webkit-font-feature-settings: "liga=1,kern=1";
+  -ms-font-feature-settings: "liga" 1,"kern" 1;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background: white;
+  color: @base;
+  margin: 0;
+  padding: 0;
+  font-family: "Open Sans";
+  font-size: 140%;
+}
+
+// Core Concepts
+a {
+  text-decoration: none;
+  color: @middle;
+
+  // We want the pointer regardless of href or not.
+  cursor: pointer;
+
+  &:hover {
+    color: @primary;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.25;
+  margin-bottom: 1.42382em;
+  font-weight: normal;
+}
+
+h1 {margin: .97em 0 .5em;line-height: 1.125em;font-size: 1.8em;}
+h2 {line-height:1.2em;margin-top:1.4em;margin-bottom:.7em;font-size:1.6em}
+h3{margin:1.7em 0 .85em;line-height:1.5em;font-size:1.4em}
+h4{line-height:1.12382em;margin:.5em 0 1.3em;font-size:1.2em}
+h5{text-transform:uppercase;letter-spacing:.1em;line-height:1.5em;margin:0 0 1.5em;font-size:1em}
+h6{font-weight:bold;margin:0 0 1.5em;font-size:1em}
+
+// Header
+body > header {
+  background: @inset;
+  height: 45px;
+  color: white;
+
+  nav {
+    .constraint;
+    .antialiased;
+
+    ul, ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      li {
+        float: right;
+
+        a {
+          color: white;
+          padding: 5px 0;
+          display: inline-block;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          font-weight: normal;
+          font-style: normal;
+
+          &:hover {
+            color: @offset;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Articles
+section {
+  .constraint;
+
+  article {
+    font-family: "Libre Baskerville";
+    line-height: 1.2em;
+
+    header {
+      font-family: "Vollkorn";
+
+      h1 {
+        color: @inset;
+        margin-bottom: .2em;
+
+        a {
+          color: @inset;
+        }
+      }
+
+      time {
+        .antialiased;
+        display: block;
+        color: @offset;
+        margin-bottom: 1em;
+      }
+    }
+
+    img {
+      text-align: center;
+    }
+
+    p {
+      color: @base;
+      line-height: 1.7em;
+      margin: 0 0 1.5em 0;
+
+      a {
+        border-bottom: 1px dotted #aaa;
+
+        &:hover {
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}
+
+footer {
+  .constraint;
+}
