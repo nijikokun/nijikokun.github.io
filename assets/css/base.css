@@ -76,7 +76,6 @@ h6 {
   font-size: 1em;
 }
 body > header {
-  background: #111111;
   height: 45px;
   color: white;
 }
@@ -95,11 +94,12 @@ body > header nav ol {
 }
 body > header nav ul li,
 body > header nav ol li {
-  float: right;
+  float: left;
+  position: relative;
+  z-index: 2;
 }
 body > header nav ul li a,
 body > header nav ol li a {
-  color: white;
   padding: 5px 0;
   display: inline-block;
   text-transform: uppercase;
@@ -110,6 +110,16 @@ body > header nav ol li a {
 body > header nav ul li a:hover,
 body > header nav ol li a:hover {
   color: #888888;
+}
+body > header nav ul li a.logo {
+  background: black;
+  color: white;
+  padding: 5px 10px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+body > header nav ul li a.logo:hover {
+  color: white;
 }
 section {
   width: 60%;
@@ -134,6 +144,9 @@ section article header time {
   font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -webkit-font-smoothing: antialiased;
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 14px;
   display: block;
   color: #888888;
   margin-bottom: 1em;
@@ -142,8 +155,7 @@ section article img {
   text-align: center;
 }
 section article li, section article p {
-  font-family: 'Open Sans';
-  font-weight: 300;
+  font-family: "Libre Baskerville";
   color: #222222;
 }
 section article p {

@@ -1,0 +1,77 @@
+---
+layout: layout
+---
+
+<article>
+  <div class="controls">
+    <span class="next">next</span>
+    <span class="prev">previous</span>
+  </div>
+
+  <header>
+    <h1>{{ page.title }} | Ep {{ page.episode }}</h1>
+    <time>{{ page.date | date: "%B %d, %Y %H:%M" }}</time>
+  </header>
+
+  <div class="player-holder">
+    <div id="player"></div>
+  </div>
+
+  <div class="details">
+    <div class="title"></div>
+    <div class="artist"></div>
+    <div class="album"></div>
+  </div>
+</article>
+
+<style type="text/css">
+  section article .controls {
+    float: right;
+  }
+
+  section article .controls span {
+    display: none;
+    top: 8px;
+    padding: 0 10px;
+    float: right;
+  }
+
+  section article .controls span:hover {
+    cursor: pointer;
+    color: #aaa;
+  }
+
+  section article .player-holder {
+    position: absolute;
+    top: 170px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+  }
+
+  section article .details {
+    position: absolute;
+    top: 0;
+    width: 60%;
+    text-align: right;
+    font-size: 16px;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  section article .details .artist {
+    font-size: 14px;
+    color: #BFBFBF;
+  }
+
+  {% if page.style %}{{ page.style }}{% endif %}
+</style>
+
+<script src="https://www.youtube.com/iframe_api"></script>
+<script>
+var playlist = {{ page.playlist }};
+var player,index=0,controls=$(".controls"),details=$('.details');function onYouTubeIframeAPIReady(){player=new YT.Player("player",{height:"100%",width:"100%",playerVars:{modestbranding:1,wmode:"transparent",controls:0,showinfo:0},events:{onReady:onPlayerReady,onStateChange:onPlayerStateChange}})}
+function onPlayerReady(a){console.log("not started called");a=playlist[index];details.find(".title").html('<a href="http://youtu.be/' + a.id + '" target="_blank">' + a.title + '</a>');details.find(".artist").text(a.artist);checkNext();checkPrev();player.loadVideoById(a.id,0,"highres");player.playVideo()}function onPlayerStateChange(a){0==a.data&&index!=playlist.length-1&&(index++,play())}function checkNext(){index==playlist.length-1?controls.find(".next").hide():controls.find(".next").show()}
+function checkPrev(){0==index?controls.find(".prev").hide():controls.find(".prev").show()}function play(){checkNext();checkPrev();var a=playlist[index];details.find(".title").html('<a href="http://youtu.be/' + a.id + '" target="_blank">' + a.title + '</a>');details.find(".artist").text(a.artist);player.loadVideoById(a.id,0,"highres");player.playVideo()}$(".next").click(function(){index!=playlist.length-1&&(index++,play())});$(".prev").click(function(){0!=index&&(index--,play())});
+</script>
