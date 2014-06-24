@@ -46,7 +46,7 @@
     .button.hover-cancel:active { background: #F16C4E; padding: 7px 22px; border-width: 0px; color: white; box-shadow: inset 0 2px 3px rgba(0,0,0,0.1); }
   </style>
 
-  <script type="text/javascript">//<![CDATA[ 
+  <script type="text/javascript">//<![CDATA[
   $(window).load(function(){
     // Random Puu.sh Image Generator - For science!
     //
@@ -132,16 +132,21 @@
     }
 
     function generate () {
+      var chars;
+
         retries++;
-        var chars = randomString(parseInt(randomString(1, '456'), 10));
+        chars = randomString(parseInt(randomString(1, '456'), 10));
+
         log('Attempting [' + chars + ']... #' + retries);
-        
         log.append('Checking...');
-        if (failed.indexOf(chars) != -1) {
-            log.append('✓');
-            return generate();
+
+        if (failed && failed.length) {
+          if (failed.indexOf(chars) !== -1) {
+              log.append('✓');
+              return generate();
+          }
         }
-        
+
         log.append('✘');
         $('.puush').attr('src', 'http://puu.sh/' + chars).attr('data-chars', chars);
     }
@@ -156,10 +161,10 @@
 
     $debug.on('click', function (e) {
       debug = !!$('.debug:checked').length;
-      
+
       if (!debug && $console.css('display') !== 'none')
         $console.hide();
-      
+
       if (debug && $loading.css('display') !== 'none')
         $console.show();
     });
@@ -170,13 +175,13 @@
         $tag.hide();
 
         if (debug) $console.show();
-        
+
         log('Hiding current image...');
         $puush.hide();
-        
+
         log('Showing loader...');
         $loading.show();
-        
+
         log('Disabling button...');
         $(this).attr('disabled', true);
 
@@ -239,19 +244,20 @@
 
     $puush.load(function () {
       var $this = $(this), $src = $this.attr('src'), $chars = $this.attr('data-chars');
+
       if ($this.height() < 5 || $this.width() < 5) {
-          updateFailed($chars);
-          log.append('submitting to failure database.');
-          return generate();
+        updateFailed($chars);
+        log.append('submitting to failure database.');
+        return generate();
       }
-     
+
       log('Image found... checking against already viewed...');
       var $link = $('<a>').attr('target', '_blank').attr('href', $src).html($src);
       if (images.indexOf($src) != -1) {
         log.append('previously viewed image... skipping.')
         return generate();
       } else images.push($src), $('.loaded .inner').append($('<div>').html($link)[0].outerHTML);
-      
+
       log('Image check passed.. Showing image...');
       retries = 0;
       viewed++;
@@ -286,10 +292,10 @@
 
   <div>
     <p>
-      <strong>Random Puu.sh Image Generator</strong> - 
-      <em>For science!</em> - 
-      By <a href="http://nexua.org/">Nijikokun</a> - 
-      open-source under MIT license - 
+      <strong>Random Puu.sh Image Generator</strong> -
+      <em>For science!</em> -
+      By <a href="http://nexua.org/">Nijikokun</a> -
+      open-source under MIT license -
       2013
     </p>
   </div>
