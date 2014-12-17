@@ -1,6 +1,6 @@
 ---
 layout: podcast
-date: 10/08/13 02:06:14
+date: 2013-10-08 02:06:14
 title: Introlacing
 episode: 1
 playlist: |

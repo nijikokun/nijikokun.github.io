@@ -1,6 +1,6 @@
 ---
 layout: post
-date: 03/31/13 18:20:26
+date: 2013-03-31 18:20:26
 title: New Beginnings
 style: |
   section article p a { border-bottom: none; color: #E6483C; }

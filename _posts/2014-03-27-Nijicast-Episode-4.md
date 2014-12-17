@@ -1,6 +1,6 @@
 ---
 layout: podcast
-date: 03/27/14 11:31:00
+date: 2014-03-27 11:31:00
 episode: 4
 title: Discontenented
 playlist: |

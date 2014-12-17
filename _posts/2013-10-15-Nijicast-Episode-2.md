@@ -1,6 +1,6 @@
 ---
 layout: podcast
-date: 10/15/13 02:00:00
+date: 2013-10-15 02:00:00
 title: Starscrape
 episode: 2
 playlist: |
