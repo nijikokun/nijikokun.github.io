@@ -1,5 +1,6 @@
 ---
 layout: podcast
+category: podcast
 date: 2013-11-19 21:23:00
 title: VISIDUAL-CAUSALITY
 episode: 3

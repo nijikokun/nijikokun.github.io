@@ -1,5 +1,6 @@
 ---
 layout: podcast
+category: podcast
 date: 2013-10-15 02:00:00
 title: Starscrape
 episode: 2

@@ -1,5 +1,6 @@
 ---
 layout: podcast
+category: podcast
 date: 2013-10-08 02:06:14
 title: Introlacing
 episode: 1

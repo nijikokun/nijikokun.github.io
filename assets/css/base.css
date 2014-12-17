@@ -100,26 +100,31 @@ body > header nav ol li {
 }
 body > header nav ul li a,
 body > header nav ol li a {
-  padding: 5px 0;
+  padding: 15px 0px 0;
+  margin: 0 10px;
   display: inline-block;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: normal;
   font-style: normal;
+  color: #888;
 }
+body > header nav ul li a.active,
 body > header nav ul li a:hover,
 body > header nav ol li a:hover {
-  color: #888888;
+  color: #000;
+  border-bottom: 2px solid #000;
 }
 body > header nav ul li a.logo {
   background: black;
   color: white;
   padding: 5px 10px;
   font-weight: 700;
-  margin-top: 10px;
+  margin: 10px 0 0 0;
 }
 body > header nav ul li a.logo:hover {
   color: white;
+  border-bottom: none;
 }
 section {
   width: 60%;
@@ -180,4 +185,31 @@ section article a:hover {
 footer {
   width: 60%;
   margin: 0 auto;
+}
+
+article.episode .number {
+    float: left;
+    padding: 5px;
+    margin-right: 10px;
+    background: hsl(0, 0%, 10%);
+    color: white;
+    /* border-radius: 3px; */
+    font-family: 'Open Sans';
+    min-width: 45px;
+    text-align: center;
+}
+
+article.episode time {
+    margin-left: 68px;
+    margin-bottom: 0;
+}
+
+article.episode {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1em;
+}
+
+article.episode:first-of-type {
+  margin-top: 2em;
+  border-top: 1px solid #eee;
 }

@@ -1,3 +1,4 @@
+{% assign current = page.url | downcase | split: '/' %}
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -13,6 +14,7 @@
       <nav>
         <ul>
           <li><a href="/" class="logo">NY</a></li>
+          <li><a href="/episodes"{% if current[1] == 'episodes' %} class='active'{% endif %}>Nijicast Episodes</a></li>
         </ul>
       </nav>
     </header>
