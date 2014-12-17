@@ -30,7 +30,7 @@ style: |
 
     ```bash
     $ mkdir ~/<remote-site-domain>
-    $ sshfs -o IdentityFile=<private-key> user@host:/<directory> ~/<remote-side-domain>
+    $ sshfs -o IdentityFile=<private-key> user@host:/<directory> ~/<remote-site-domain>
     ```
 
     Since we are using SSH this step requires you to have [setup SSH keys][3] for the remote location.
@@ -45,6 +45,8 @@ style: |
 
     Happy Editing, no complex sync systems or editor plugins required.
 6. **Unmounting**
+
+    When you're done editing to unmount the remote server simply use the `umount` command:
 
     ```bash
     $ sudo umount -f ~/<remote-site-domain>
