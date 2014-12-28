@@ -1,0 +1,16 @@
+---
+layout: layout
+title: Nijicast Episode List
+subtitle: Nijicast Episodes
+permalink: /episodes/
+---
+{% assign podcasts = (site.posts | where: "category", "podcast") %}
+{% for post in podcasts %}
+  <article class="episode">
+    <header>
+      <span class="number">{{ post.episode }}</span>
+      <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
+      <time>{{ post.date | date: '%B %d, %Y %H:%M' }}</time>
+    </header>
+  </article>
+{% endfor %}

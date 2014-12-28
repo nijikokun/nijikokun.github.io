@@ -2,10 +2,10 @@
 <head>
     <title>Hasher.js 2/6 - Simplified URL Routing</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-    <script src="https://github.com/Nijikokun/Hasher/raw/master/hasher.js"></script>
+    <script src="https://cdn.rawgit.com/Nijikokun/Hasher/master/hasher.js"></script>
     <script src="http://twitter.github.com/bootstrap/1.3.0/bootstrap-alerts.js"></script>
-    <link href="http://twitter.github.com/bootstrap/1.3.0/bootstrap.css" rel="stylesheet">
-    <style type="text/css"> 
+    <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
       /* Override some defaults */
       html, body {
         background-color: #eee;
@@ -19,7 +19,7 @@
       .container {
         width: 820px; /* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
       }
- 
+
       /* The white background content wrapper */
       .content {
         background-color: #fff;
@@ -32,7 +32,7 @@
            -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
                 box-shadow: 0 1px 2px rgba(0,0,0,.15);
       }
- 
+
       /* Page header tweaks */
       .page-header {
         background-color: #f5f5f5;
@@ -42,7 +42,7 @@
    -moz-border-radius: 6px 6px 0 0;
         border-radius: 6px 6px 0 0;
       }
- 
+
       /* Styles you shouldn't keep as they are for displaying this base example only */
       .content .span10,
       .content .span4 {
@@ -54,26 +54,26 @@
         padding-left: 19px;
         border-left: 1px solid #eee;
       }
- 
+
       .topbar .btn {
         border: 0;
       }
- 
-    </style> 
-  </head> 
- 
-  <body> 
-    <div class="container"> 
- 
-      <div class="content"> 
-        <div class="page-header"> 
+
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+
+      <div class="content">
+        <div class="page-header">
           <h1>
-              Hasher.js<sup><small><b>2/6</b></small></sup> 
+              Hasher.js<sup><small><b>2/6</b></small></sup>
               <small>Simplified Hash Routing</small>
-          </h1> 
-        </div> 
-        <div class="row"> 
-          <div class="span10"> 
+          </h1>
+        </div>
+        <div class="row">
+          <div class="span10">
             <div class="span2">
               <code id="data"></code>
             </div>
@@ -83,13 +83,13 @@
                 <li><a href="#!/inject/data/Cool Spaces">Inject <b>Cool Spaces</b> into <em>#data</em></a>
                 <li><a href="#!/inject/data/Mr_Underscore">Inject <b>Mr_Underscore</b> into <em>#data</em></a>
               </ul>
-                  
-                  
+
+
                   <p><span class="label notice">Notice</span> To Generate this without clicking to prove that it's not just javascript tricking you in the background, visit:</p>
                   <div class="input"><span class="uneditable-input" style="width:380px">http://nijikokun.github.com/Hasher/#!/inject/data/Nijikokun</span></div>
             </div>
-          </div> 
-          <div class="span4"> 
+          </div>
+          <div class="span4">
             <div class="addthis">
               <h3>Share</h3>
               <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
@@ -102,25 +102,25 @@
               <script type="text/javascript">var addthis_config = {"data_track_clickback":true};</script>
               <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=spadin"></script>
             </div>
-          </div> 
-        </div> 
-      </div> 
- 
-      <footer> 
-        <p>&copy; Nijikokun 2011</p> 
-      </footer> 
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>&copy; Nijikokun 2011</p>
+      </footer>
     <script>
         // Add a route: (http://url.to.index/#/name/Nijikokun) will initialize this.
         Hasher.add("/inject/:data/:name", function(data, name) {
             $('#' + data).html(name);
-            
+
             // Console
             console.log(name);
         });
-        
+
         // Setup the Hasher
         Hasher.setup();
     </script>
     </div>
-  </body> 
-</html> 
+  </body>
+</html>
