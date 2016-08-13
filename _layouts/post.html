@@ -2,12 +2,29 @@
 layout: layout
 ---
 
-<article>
-  <header>
-    <h1>{{ page.title }}</h1>
-    <time>{{ page.date | date: "%B %d, %Y %H:%M" }}</time>
-  </header>
-  {{ content }}
-</article>
+<div class="grid-container article-{% if page.type %}{{page.type}}{% else %}page{% endif %}-container">
+  <div class="grid article">
+    <div class="grid-item one-whole">
+      <h1 class="article-title text-align-center">{{ page.title }}</h1>
+    </div>
+
+    <div class="grid-item one-whole">
+      {{ content }}
+    </div>
+
+    <div class="grid-item one-whole">
+      <div class="article-meta">
+        <p>{{ page.date | date: '%B %d, %Y' }}</p>
+        <p class="article-tags">
+        {% for tag in page.tags %}
+          <a href="/tags#{{ tag }}" class="article-tag">{{ tag }}</a>
+        {% endfor %}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include archives.html %}
 
 {% if page.style %}<style type="text/css">{{ page.style }}</style>{% endif %}

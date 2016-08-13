@@ -1,0 +1,36 @@
+{% assign podcasts = (site.posts | where: "category", "podcast") %}
+{% for post in podcasts %}
+  {% assign year = post.date | date: "%Y" %}
+  {% if year != date %}
+  {% unless forloop.first %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endunless %}
+
+  <div class="grid-container">
+    <div class="grid archive">
+      <div class="grid-item one-quarter archive-border-top">
+        <h1 class="archive-year">{{ year }}</h1>
+      </div>
+
+      <div class="grid-item three-quarters archive-border-top">
+        <ul class="archive-list">
+    {% assign date = year %}
+  {% endif %}
+
+          <li>
+            <a href="{{ post.url }}" class="archive-list-link">
+              <strong class="archive-list-title">{{ post.title }}</strong>
+              <em class="archive-list-date" time="{{ post.date | date: '%B %d, %Y %H:%M' }}">Ep {{ post.episode }}</em>
+            </a>
+          </li>
+
+  {% if forloop.last %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% endfor %}

@@ -2,76 +2,46 @@
 layout: layout
 ---
 
-<article>
-  <div class="controls">
-    <span class="next">next</span>
-    <span class="prev">previous</span>
+<div class="grid-container episode-container">
+  <div class="grid episode">
+    <div class="grid-item one-whole">
+      <h1 class="episode-title text-align-center">{{ page.title }}</h1>
+      <h6 class="episode-subtitle text-align-center">Episode {{ page.episode }}</h6>
+    </div>
   </div>
+</div>
 
-  <header>
-    <h1>{{ page.title }} | Ep {{ page.episode }}</h1>
-    <time>{{ page.date | date: "%B %d, %Y %H:%M" }}</time>
-  </header>
 
-  <div class="player-holder">
-    <div id="player"></div>
+<div class="player-holder">
+  <div id="player"></div>
+</div>
+
+<div class="grid-container episode-container">
+  <div class="grid episode">
+    <div class="grid-item one-whole">
+      <div class="episode-list-container"></div>
+    </div>
+
+    <div class="grid-item one-whole">
+      <div class="article-meta">
+        <p>{{ page.date | date: '%B %d, %Y' }}</p>
+        <p class="article-tags">
+        {% for tag in page.tags %}
+          <a href="/tags#{{ tag }}" class="article-tag">{{ tag }}</a>
+        {% endfor %}
+        </p>
+      </div>
+    </div>
   </div>
+</div>
 
-  <div class="details">
-    <div class="title"></div>
-    <div class="artist"></div>
-    <div class="album"></div>
-  </div>
-</article>
+{% include podcasts.html %}
 
-<style type="text/css">
-  section article .controls {
-    float: right;
-  }
-
-  section article .controls span {
-    display: none;
-    top: 8px;
-    padding: 0 10px;
-    float: right;
-  }
-
-  section article .controls span:hover {
-    cursor: pointer;
-    color: #aaa;
-  }
-
-  section article .player-holder {
-    position: absolute;
-    top: 170px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
-  }
-
-  section article .details {
-    position: absolute;
-    top: 0;
-    width: 60%;
-    text-align: right;
-    font-size: 16px;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-
-  section article .details .artist {
-    font-size: 14px;
-    color: #BFBFBF;
-  }
-
-  {% if page.style %}{{ page.style }}{% endif %}
-</style>
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mithril/0.2.5/mithril.min.js"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
 <script>
-var playlist = {{ page.playlist }};
-var player,index=0,controls=$(".controls"),details=$('.details');function onYouTubeIframeAPIReady(){player=new YT.Player("player",{height:"100%",width:"100%",playerVars:{modestbranding:1,wmode:"transparent",controls:0,showinfo:0},events:{onReady:onPlayerReady,onStateChange:onPlayerStateChange}})}
-function onPlayerReady(a){console.log("not started called");a=playlist[index];details.find(".title").html('<a href="http://youtu.be/' + a.id + '" target="_blank">' + a.title + '</a>');details.find(".artist").text(a.artist);checkNext();checkPrev();player.loadVideoById(a.id,0,"highres");player.setPlaybackQuality("highres");player.playVideo()}function onPlayerStateChange(a){0==a.data&&index!=playlist.length-1&&(index++,play())}function checkNext(){index==playlist.length-1?controls.find(".next").hide():controls.find(".next").show()}
-function checkPrev(){0==index?controls.find(".prev").hide():controls.find(".prev").show()}function play(){checkNext();checkPrev();var a=playlist[index];details.find(".title").html('<a href="http://youtu.be/' + a.id + '" target="_blank">' + a.title + '</a>');details.find(".artist").text(a.artist);player.loadVideoById(a.id,0,"highres");player.setPlaybackQuality("highres");player.playVideo()}$(".next").click(function(){index!=playlist.length-1&&(index++,play())});$(".prev").click(function(){0!=index&&(index--,play())});
+var playlist = {{page.playlist}};
+
+function onYouTubeIframeAPIReady(){player=new YT.Player("player",{height:"480px",width:"100%",playerVars:{modestbranding:1,wmode:"transparent",controls:0,showinfo:0},events:{onReady:onPlayerReady,onStateChange:onPlayerStateChange}})}function onPlayerReady(a){m.redraw(),a=playlist[index],checkNext(),checkPrev(),player.loadVideoById(a.id,0,"highres"),player.setPlaybackQuality("highres"),player.playVideo()}function onPlayerStateChange(a){0==a.data&&index!=playlist.length-1&&(index++,play())}function checkNext(){index==playlist.length-1?controls.find(".next").hide():controls.find(".next").show()}function checkPrev(){0==index?controls.find(".prev").hide():controls.find(".prev").show()}function play(a){"number"==typeof a&&playlist[a]&&(index=a),checkNext(),checkPrev(),m.redraw(!0);var b=playlist[index];player.loadVideoById(b.id,0,"highres"),player.setPlaybackQuality("highres"),player.playVideo()}var player,index=0,controls=$(".controls"),details=$(".details");$(".next").click(function(){index!=playlist.length-1&&(index++,play())}),$(".prev").click(function(){0!=index&&(index--,play())});var Playlist={controller:function(){},view:function(){return m("ul.episode-list",playlist.map(function(a,b){var c=!1;return index===b&&(c=!0),m("li.episode-list-item",{class:c?"episode-list-playing":"",onclick:function(){return play(b)}},[m("strong.episode-list-title",[m("div.now-playing",[m(".bar.n1"),m(".bar.n2"),m(".bar.n3"),m(".bar.n4"),m(".bar.n5")]),a.title]),m("em.episode-list-artist",a.artist)])}))}};m.mount(document.getElementsByClassName("episode-list-container")[0],Playlist);
+
 </script>
