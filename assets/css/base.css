@@ -592,18 +592,13 @@ th {
   justify-content: space-between;
 
   text-decoration: none;
-  padding: 8px 0 9.6px;
   transition: none;
   list-style: none;
 
-  cursor: pointer;
-}
-
-.episode-list-playing {
-  border: 1px solid;
   padding: 10px;
-  border-radius: 3px;
   margin: 0 -10px;
+
+  cursor: pointer;
 }
 
 .episode-list-title {
@@ -684,8 +679,9 @@ th {
 
 .episode-subtitle { color: #a0a0a0; }
 
+.episode-list-item:not(.episode-list-playing):hover { background: hsl(0, 0%, 94%); }
 .episode-list-item { border-color: hsla(0, 0%, 0%, 0.1); }
 .episode-list-item .episode-list-artist { color: #a0a0a0; }
 .episode-list-item .now-playing .bar {  background: #ffffff; }
-.episode-list-playing { border-color: hsla(0, 0%, 0%, 0.1); }
-.episode-list-playing .now-playing .bar { background: linear-gradient(to bottom, #f95d58, #f95d58); }
+.episode-list-playing { background: #000000; }
+.episode-list-playing .episode-list-title { color: #FFFFFF; }
