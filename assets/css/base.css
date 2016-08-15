@@ -562,7 +562,18 @@ th {
 
 .player-holder {
   display: block;
-  margin: -30px -8px 0;
+  margin: -30px -8px 30px;
+  background: #000;
+  overflow: hidden;
+}
+
+.player-wrapper {
+  width: 1080px;
+  margin: 0 auto;
+}
+
+.player-wrapper > iframe {
+  margin-bottom: -10px;
 }
 
 .player-holder .next {

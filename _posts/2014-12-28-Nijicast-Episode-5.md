@@ -6,11 +6,11 @@ episode: 5
 title: Futuristic Love
 playlist: |
   [
-    { id: "xM-ilf_nqZg", title: "Christmas in Jersey", artist: "Trippy Turtle", genre: [] },
+    { id: "xM-ilf_nqZg", title: "Christmas in Jersey", artist: "Trippy Turtle", genre: [], },
     { id: "KpSqPCTWFGM", title: "☼ Ⓥ Ⓘ Ⓢ Ⓐ ☼", artist: "Whispa", genre: [] },
     { id: "2sBkCxzshYw", title: "Singularity", artist: "Dirty Chocolate", genre: [] },
     { id: "xFPaQkiL7KI", title: "22", artist: "Whispa", genre: [] },
-    { id: "U1_YTjcs9ds", title: "darkness (pumpkin winter solstice)", artist: "mus.hiba", genre: [] },
+    { id: "U1_YTjcs9ds", title: "darkness (pumpkin winter solstice)", artist: "mus.hiba", genre: [], background: "#443C49" },
     { id: "mGeFKrCRLtU", title: "ＦＥＬＩＮＥ", artist: "˚☆ padillion ☆˚", genre: [] },
     { id: "f5QKgrTEgYw", title: "Challenger", artist: "Kappa Kavi", genre: [] }
   ]
