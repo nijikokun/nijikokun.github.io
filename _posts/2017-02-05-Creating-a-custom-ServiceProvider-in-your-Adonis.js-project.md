@@ -34,7 +34,6 @@ class FirebaseService {
     // Find out more at: https://firebase.google.com/docs/admin/setup
     const FirebaseAdmin = require('firebase-admin')
 
-
     // Obtain Firebase configuration from config/services.js
     // Create the file if it doesn't exist and Adonis will pick it up
     const FirebaseConfig = Config.get('services.firebase') 
