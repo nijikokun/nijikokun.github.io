@@ -1,7 +1,6 @@
 ---
 layout: post
 date: 2014-12-17 04:39:20
-episode: 4
 title: Remote File Editing with OSXFuse & SSHFS
 ---
 
