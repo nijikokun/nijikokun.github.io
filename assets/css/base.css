@@ -437,7 +437,7 @@ th {
 }
 
 .article ul>li:before {
-  content: "â€“";
+  content: "-";
   position: absolute;
   margin-left: -1.1em
 }
@@ -502,6 +502,10 @@ th {
   background-color: transparent;
   padding: 0;
   border: 0
+}
+
+.article p code {
+  font-size: 16px;
 }
 
 .article-full-container {
