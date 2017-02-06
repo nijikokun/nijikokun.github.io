@@ -58,8 +58,8 @@ class FirebaseService {
 module.exports = FirebaseService
 ```
 
-Here we will simply create a **ServiceProvider** consuming our **Simple Provider** we just created in 
-`providers/firebaseServiceProvider.js`
+Now we need to create our **ServiceProvider** that consumes our **Simple Provider** we just created in a new file named 
+`providers/firebaseServiceProvider.js`:
 
 ```js
 const ServiceProvider = require('adonis-fold').ServiceProvider
