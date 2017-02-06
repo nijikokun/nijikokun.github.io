@@ -25,7 +25,7 @@ and a **ServiceProvider** is that the **Simple Provider** doesn't get hoisted on
 to the Adonis application context object. **Simple Providers** are also stored in the `providers/` directory and **ServiceProviders** 
 can include them to hoist them onto the Adonis application.
 
-First we create our **Simple Provider** for Firebase in `providers/firebaseService.js`:
+First we create our **Simple Provider** for Firebase in a file named `providers/firebaseService.js`:
 
 ```js
 class FirebaseService {
