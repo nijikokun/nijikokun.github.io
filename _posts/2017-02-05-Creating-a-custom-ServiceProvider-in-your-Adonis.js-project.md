@@ -29,30 +29,30 @@ Create our **Simple Provider** for Firebase in `providers/firebaseService.js`:
 
 ```js
 class FirebaseService {
-    constructor (Config) {
-      // Include our firebase-admin module
-      // Find out more at: https://firebase.google.com/docs/admin/setup
-      const FirebaseAdmin = require('firebase-admin')
+  constructor (Config) {
+    // Include our firebase-admin module
+    // Find out more at: https://firebase.google.com/docs/admin/setup
+    const FirebaseAdmin = require('firebase-admin')
 
-  
-      // Obtain Firebase configuration from config/services.js
-      // Create the file if it doesn't exist and Adonis will pick it up
-      const FirebaseConfig = Config.get('services.firebase') 
 
-      // Initialize our priviledged firebase admin application
-      FirebaseAdmin.initializeApp({
-        credential: FirebaseAdmin.credential.cert({
-          projectId: FirebaseConfig.credentials.projectId,
-          clientEmail: FirebaseConfig.credentials.clientEmail,
-          privateKey: FirebaseConfig.credentials.privateKey
-        }),
+    // Obtain Firebase configuration from config/services.js
+    // Create the file if it doesn't exist and Adonis will pick it up
+    const FirebaseConfig = Config.get('services.firebase') 
 
-        databaseURL: FirebaseConfig.databaseURL
-      })
+    // Initialize our priviledged firebase admin application
+    FirebaseAdmin.initializeApp({
+      credential: FirebaseAdmin.credential.cert({
+        projectId: FirebaseConfig.credentials.projectId,
+        clientEmail: FirebaseConfig.credentials.clientEmail,
+        privateKey: FirebaseConfig.credentials.privateKey
+      }),
 
-      // Return our FirebaseAdmin object
-      return FirebaseAdmin
-    }
+      databaseURL: FirebaseConfig.databaseURL
+    })
+
+    // Return our FirebaseAdmin object
+    return FirebaseAdmin
+  }
 }
 
 module.exports = FirebaseService
