@@ -10,7 +10,7 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   color: hsl(296, 17%, 16%);
-  font-size: 125%;
+  font-size: 16px;
 }
 
 h1 {
@@ -441,10 +441,11 @@ th {
   margin-left: -1.1em
 }
 
-.article ul>li {
-  margin-bottom: 12px;
-  line-height: 1.33!important;
-  margin-left: 1.1em
+.article ul>li,
+.article ol>li {
+  margin-bottom: 5px;
+  /* line-height: 1.2; */
+  margin-left: .5em;
 }
 
 .article ol ol,
@@ -482,7 +483,7 @@ th {
   display: block;
   padding: 1em;
   margin-bottom: 1em;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 20px;
   word-break: break-all;
   word-wrap: break-word;
