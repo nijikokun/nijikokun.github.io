@@ -9,7 +9,7 @@ I've been slowly developing a small project as a learning experience and I would
 missing from the Adonis documentation.
 
 When you're using a third-party library such as [Firebase][2] in your project, usually you include the module and instantiate 
-the module with configuration values each time you use it or you create a global. Adonis two features called **IoC** 
+the module with configuration values each time you use it or you create a global. Adonis has two features called **IoC** 
 and **ServiceProviders** to prevent you from having to do that and a centralized configuration directory to prevent configuration 
 values being hardcoded into your codebase. 
 
