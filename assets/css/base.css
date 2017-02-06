@@ -496,9 +496,10 @@ th {
 }
 
 .article pre code {
+  background-color: #272822;
+  color: hsl(0, 0%, 96%);
   color: inherit;
   white-space: pre-wrap;
-  background-color: transparent;
   padding: 0;
   border: 0
 }
