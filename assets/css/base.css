@@ -355,7 +355,6 @@ th {
   -ms-flex-align: baseline;
   align-items: baseline;
   margin: 0;
-  font-family: sans-serif;
 }
 
 .archive-list {
@@ -692,7 +691,7 @@ th {
 .archive-list-link:hover { color: #f95d58 }
 /*.archive-list-link:visited {color: hsl(0, 0%, 60%);}*/
 
-.archive-list-date {color: hsl(0, 0%, 60%);font-family: sans-serif;}
+.archive-list-date {color: hsl(0, 0%, 60%);}
 
 .article p {/* color: hsl(296, 17%, 16%); */}
 .article a,
@@ -702,7 +701,7 @@ th {
 
 .article bloquote { border-color: hsla(0, 0%, 0%, 0.65) }
 
-.article-meta, .article-meta p {color: hsl(0, 0%, 60%);font-family: sans-serif;}
+.article-meta, .article-meta p {color: hsl(0, 0%, 60%);}
 .article-tags a { color: #a0a0a0; box-shadow: none }
 .article-tags a:hover { color: #212121; box-shadow: none }
 
