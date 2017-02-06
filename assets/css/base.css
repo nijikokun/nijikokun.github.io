@@ -678,7 +678,7 @@ th {
 
 .archive-list-link { color: #000000  }
 .archive-list-link:hover { color: #f95d58 }
-.archive-list-link:visited {color: hsl(0, 0%, 60%);}
+/*.archive-list-link:visited {color: hsl(0, 0%, 60%);}*/
 
 .archive-list-date {color: hsl(0, 0%, 60%);font-family: sans-serif;}
 
