@@ -709,7 +709,7 @@ th {
 
 /* HL */
 
-.highlight pre { background-color: #272822; }
+.highlight pre { background-color: #272822; color: hsl(0, 0%, 96%); }
 .highlight .hll { background-color: #272822; }
 .highlight .c { color: #75715e } /* Comment */
 .highlight .err { color: #960050; background-color: #1e0010 } /* Error */
