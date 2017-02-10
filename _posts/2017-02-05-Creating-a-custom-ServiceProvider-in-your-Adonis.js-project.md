@@ -85,15 +85,18 @@ Great, we now have our service provider, how do we tell our Adonis application h
 
 ## Create our **ServiceProvider** definition in our Adonis application
 
-Service definitions are setup in the `bootstrap/app.js` file on the **aliases** object contained within. 
-We don't need to reference the file location of our **ServiceProvider**, simply the namespace.
+Service definitions are setup in the `bootstrap/app.js` file on the **providers** array, you will have to 
+require the `path` module should it not already be required, and provide a relative path to the **ServiceProvider** 
+we created in the last step:
 
 ```js
-const aliases = {
+const path = require('path')
+
+const providers = [
   // ...
-  Firebase: 'Adonis/Services/Firebase',
+  path.join(__dirname, '..', 'providers', 'firebaseServiceProvider')
   // ...
-}
+]
 ```
 
 ## Start using our **ServiceProvider**
