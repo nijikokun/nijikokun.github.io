@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="shortcut icon" type="image/x-icon" href="https://www.lua.org/favicon.ico" />
+  <title>LuaJIT Compiler - Not Yet Implemented Matrix</title>
+  
+<style>
+body,html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 13px;
+  text-shadow: 0 1px rgba(0,0,0,0.1)
+}
+
+h1 {
+  font-size: 14px;
+  margin: 0 2px 0px;
+  padding: 10px;
+  background: #888;
+  color: white;
+}
+
+h1 a {
+  color: white;
+}
+
+.tables {
+  display: flex;
+}
+
+td,th {
+  font-size: 11px;
+  padding: 8px;
+  text-align: center;
+}
+th {
+  background-color: #ccc;
+}
+th[colspan="2"] {
+  background-color: #aaa;
+}
+tr td {
+  position: relative;
+}
+tr td:before {
+  left: 0;
+  top: 0;
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  opacity: 0;
+  transition: all .1s;
+}
+tr:hover td:before {
+  opacity: 0.1;
+}
+tr td:first-child {
+  font-weight: bold;
+}
+td[class*="support-"] {
+  color: white;
+  white-space: nowrap;
+}
+.support-full {
+  background: #39B54A;
+}
+
+.support-none {
+  background: #F53B33;
+}
+
+.support-never {
+  background: #C44230;
+}
+
+.support-partial {
+  background: orange;
+}
+
+.support-maybe {
+  background: #5FBE48;
+}
+
+.has-title span {
+  text-decoration: underline dotted white;
+}
+</style>
+</head>
+<body translate="no">
+
+  <h1>LuaJIT Compiler - <a href="http://wiki.luajit.org/NYI">Not Yet Implemented</a> Matrix</h1>
+  <div class="tables"></div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+<script src="https://npmcdn.com/babel-transform-in-browser@6.4.6/dist/btib.min.js"></script>
+<script type="text/es2015">
+var Libraries = {
+  'Bytecode': [{"Bytecode":"CAT","Compiled?":"2.1","Remarks":"Concatenation operator '..'."},{"Bytecode":"FNEW","Compiled?":"no","Remarks":"Create closure."},{"Bytecode":"FUNCC","Compiled?":"2.1 stitch","Remarks":"Call C function via classic API."},{"Bytecode":"FUNCCW","Compiled?":"2.1 stitch","Remarks":"Call wrapped C function via classic API."},{"Bytecode":"FUNC*","Compiled?":"partial","Remarks":"Call built-in function. See below."},{"Bytecode":"ISNEXT","Compiled?":"no","Remarks":"Check for next() loop optimization."},{"Bytecode":"ITERN","Compiled?":"no","Remarks":"Optimized call to next() in loop."},{"Bytecode":"CALLT","Compiled?":"partial","Remarks":"Tailcall. Some tailcalls to frames lower than the starting frame of the trace are not compiled."},{"Bytecode":"RET*","Compiled?":"partial","Remarks":"Return from function. Returns to C frames and some returns to frames lower than the starting frame of the trace are not compiled."},{"Bytecode":"TSETM","Compiled?":"2.1","Remarks":"Initialize table with multiple return values."},{"Bytecode":"UCLO","Compiled?":"no","Remarks":"Close upvalues."},{"Bytecode":"VARG","Compiled?":"partial","Remarks":"Vararg operator '...'. Multi-result VARG is only compiled when used with select()."}],
+  'Base': [{"Function":"assert","Compiled?":"yes","Remarks":""},{"Function":"collectgarbage","Compiled?":"no","Remarks":""},{"Function":"dofile","Compiled?":"never","Remarks":""},{"Function":"error","Compiled?":"never","Remarks":""},{"Function":"getfenv","Compiled?":"2.1 partial","Remarks":"Only getfenv(0) is compiled."},{"Function":"getmetatable","Compiled?":"yes","Remarks":""},{"Function":"ipairs","Compiled?":"yes","Remarks":""},{"Function":"load","Compiled?":"never","Remarks":""},{"Function":"loadfile","Compiled?":"never","Remarks":""},{"Function":"loadstring","Compiled?":"never","Remarks":""},{"Function":"next","Compiled?":"no","Remarks":""},{"Function":"pairs","Compiled?":"no","Remarks":""},{"Function":"pcall","Compiled?":"yes","Remarks":""},{"Function":"print","Compiled?":"no","Remarks":""},{"Function":"rawequal","Compiled?":"yes","Remarks":""},{"Function":"rawget","Compiled?":"yes","Remarks":""},{"Function":"rawlen (5.2)","Compiled?":"yes","Remarks":""},{"Function":"rawset","Compiled?":"yes","Remarks":""},{"Function":"select","Compiled?":"partial","Remarks":"Only compiled when first argument is a constant."},{"Function":"setfenv","Compiled?":"no","Remarks":""},{"Function":"setmetatable","Compiled?":"yes","Remarks":""},{"Function":"tonumber","Compiled?":"partial","Remarks":"Won't compile for bases other than 10, other exceptions apply."},{"Function":"tostring","Compiled?":"partial","Remarks":"Only compiled for strings, numbers, booleans, nil, and values with a __tostring metamethod."},{"Function":"type","Compiled?":"yes","Remarks":""},{"Function":"unpack","Compiled?":"no","Remarks":""},{"Function":"xpcall","Compiled?":"yes","Remarks":""}],
+  'String': [{"Function":"string.byte","Compiled?":"yes","Remarks":""},{"Function":"string.char","Compiled?":"2.1","Remarks":""},{"Function":"string.dump","Compiled?":"never","Remarks":""},{"Function":"string.find","Compiled?":"2.1 partial","Remarks":"Only fixed string searches (no patterns)."},{"Function":"string.format","Compiled?":"2.1 partial","Remarks":"Not for %p or non-string arguments for %s."},{"Function":"string.gmatch","Compiled?":"no","Remarks":""},{"Function":"string.gsub","Compiled?":"no","Remarks":""},{"Function":"string.len","Compiled?":"yes","Remarks":""},{"Function":"string.lower","Compiled?":"2.1","Remarks":""},{"Function":"string.match","Compiled?":"no","Remarks":""},{"Function":"string.rep","Compiled?":"2.1","Remarks":""},{"Function":"string.reverse","Compiled?":"2.1","Remarks":""},{"Function":"string.sub","Compiled?":"yes","Remarks":""},{"Function":"string.upper","Compiled?":"2.1","Remarks":""}],
+  'Table': [{"Function":"table.concat","Compiled?":"2.1","Remarks":""},{"Function":"table.foreach","Compiled?":"no","Remarks":"2.1: builtin compiled, but NYI on ITERN"},{"Function":"table.foreachi","Compiled?":"2.1","Remarks":""},{"Function":"table.getn","Compiled?":"yes","Remarks":""},{"Function":"table.insert","Compiled?":"partial","Remarks":"Only when pushing."},{"Function":"table.maxn","Compiled?":"no","Remarks":""},{"Function":"table.pack (5.2)","Compiled?":"no","Remarks":""},{"Function":"table.remove","Compiled?":"2.1","Remarks":"Partial in 2.0: only when popping."},{"Function":"table.sort","Compiled?":"no","Remarks":""},{"Function":"table.unpack (5.2)","Compiled?":"no","Remarks":""}],
+  'Math': [{"Function":"math.abs","Compiled?":"yes","Remarks":""},{"Function":"math.acos","Compiled?":"yes","Remarks":""},{"Function":"math.asin","Compiled?":"yes","Remarks":""},{"Function":"math.atan","Compiled?":"yes","Remarks":""},{"Function":"math.atan2","Compiled?":"yes","Remarks":""},{"Function":"math.ceil","Compiled?":"yes","Remarks":""},{"Function":"math.cos","Compiled?":"yes","Remarks":""},{"Function":"math.cosh","Compiled?":"yes","Remarks":""},{"Function":"math.deg","Compiled?":"yes","Remarks":""},{"Function":"math.exp","Compiled?":"yes","Remarks":""},{"Function":"math.floor","Compiled?":"yes","Remarks":""},{"Function":"math.fmod","Compiled?":"no","Remarks":""},{"Function":"math.frexp","Compiled?":"no","Remarks":""},{"Function":"math.ldexp","Compiled?":"yes","Remarks":""},{"Function":"math.log","Compiled?":"yes","Remarks":""},{"Function":"math.log10","Compiled?":"yes","Remarks":""},{"Function":"math.max","Compiled?":"yes","Remarks":""},{"Function":"math.min","Compiled?":"yes","Remarks":""},{"Function":"math.modf","Compiled?":"yes","Remarks":""},{"Function":"math.pow","Compiled?":"yes","Remarks":""},{"Function":"math.rad","Compiled?":"yes","Remarks":""},{"Function":"math.random","Compiled?":"yes","Remarks":""},{"Function":"math.randomseed","Compiled?":"no","Remarks":""},{"Function":"math.sin","Compiled?":"yes","Remarks":""},{"Function":"math.sinh","Compiled?":"yes","Remarks":""},{"Function":"math.sqrt","Compiled?":"yes","Remarks":""},{"Function":"math.tan","Compiled?":"yes","Remarks":""},{"Function":"math.tanh","Compiled?":"yes","Remarks":""}],
+  'IO': [{"Function":"io.close","Compiled?":"no","Remarks":""},{"Function":"io.flush","Compiled?":"yes","Remarks":""},{"Function":"io.input","Compiled?":"no","Remarks":""},{"Function":"io.lines","Compiled?":"no","Remarks":""},{"Function":"io.open","Compiled?":"no","Remarks":""},{"Function":"io.output","Compiled?":"no","Remarks":""},{"Function":"io.popen","Compiled?":"no","Remarks":""},{"Function":"io.read","Compiled?":"no","Remarks":""},{"Function":"io.tmpfile","Compiled?":"no","Remarks":""},{"Function":"io.type","Compiled?":"no","Remarks":""},{"Function":"io.write","Compiled?":"yes","Remarks":""}],
+  'bit': [{"Function":"bit.arshift","Compiled?":"yes","Remarks":""},{"Function":"bit.band","Compiled?":"yes","Remarks":""},{"Function":"bit.bnot","Compiled?":"yes","Remarks":""},{"Function":"bit.bor","Compiled?":"yes","Remarks":""},{"Function":"bit.bswap","Compiled?":"yes","Remarks":""},{"Function":"bit.bxor","Compiled?":"yes","Remarks":""},{"Function":"bit.lshift","Compiled?":"yes","Remarks":""},{"Function":"bit.rol","Compiled?":"yes","Remarks":""},{"Function":"bit.ror","Compiled?":"yes","Remarks":""},{"Function":"bit.rshift","Compiled?":"yes","Remarks":""},{"Function":"bit.tobit","Compiled?":"yes","Remarks":""},{"Function":"bit.tohex","Compiled?":"2.1","Remarks":""}],
+  'FFI': [{"Function":"ffi.alignof","Compiled?":"yes","Remarks":""},{"Function":"ffi.abi","Compiled?":"yes","Remarks":""},{"Function":"ffi.cast","Compiled?":"partial","Remarks":"Same restrictions as ffi.new (casting is a form of cdata creation)."},{"Function":"ffi.cdef","Compiled?":"never","Remarks":""},{"Function":"ffi.copy","Compiled?":"yes","Remarks":""},{"Function":"ffi.errno","Compiled?":"partial","Remarks":"Not when setting a new value."},{"Function":"ffi.fill","Compiled?":"yes","Remarks":""},{"Function":"ffi.gc","Compiled?":"2.1","Remarks":"Partial in 2.0: not when clearing a finalizer."},{"Function":"ffi.istype","Compiled?":"yes","Remarks":""},{"Function":"ffi.load","Compiled?":"never","Remarks":""},{"Function":"ffi.metatype","Compiled?":"never","Remarks":""},{"Function":"ffi.new","Compiled?":"partial","Remarks":"2.0: Not for VLA/VLS, > 8 byte alignment or > 128 bytes.2.1: Not for non-default init of VLA/VLS or > 128 bytes or > 16 array elements."},{"Function":"ffi.offsetof","Compiled?":"yes","Remarks":""},{"Function":"ffi.sizeof","Compiled?":"partial","Remarks":"Not for VLA/VLS types (see below)."},{"Function":"ffi.string","Compiled?":"yes","Remarks":""},{"Function":"ffi.typeof","Compiled?":"partial","Remarks":"Only for cdata arguments. Never for cdecl strings."}],
+  'Debug': [{"Function":"debug.getmetatable","Compiled?":"2.1","Remarks":""},{"Function":"debug.*","Compiled?":"no/never","Remarks":"Unlikely to change"}]
+}
+
+const SupportLevels = {
+  YES: "support-full",
+  NO: "support-none",
+  PARTIAL: "support-partial",
+  NEVER: "support-never",
+  MAYBE: "support-maybe",
+  MISSING: "support-missing"
+}
+
+function isSupported (level, only_yes) {
+  if (!level) {
+    return SupportLevels.MISSING
+  }
+
+  if (level === "yes") {
+    return SupportLevels.YES
+  }
+  
+  if (only_yes) {
+    return ""
+  }
+  
+  if (level === "no") {
+    return SupportLevels.NO
+  }
+  
+  if (~level.indexOf("never")) {
+    return SupportLevels.NEVER
+  }
+  
+  if (~level.indexOf("partial")) {
+    return SupportLevels.PARTIAL
+  }
+  
+  if (~level.indexOf("2.1")) {
+    return SupportLevels.MAYBE
+  }
+  
+  return SupportLevels.MISSING
+}
+
+let $body = $('.tables')
+let libraryKeys = Object.keys(Libraries)
+libraryKeys.forEach(libraryName => {
+  let library = Libraries[libraryName]
+  let $table = $('<table>')
+
+  $table.append($(`
+    <tr>
+      <th colspan=2>${libraryName}</th>
+    </tr>
+    <tr>
+      <th>Feature</th>
+      <th>Supported</th>
+    </tr>
+  `))
+
+  library.forEach(item => {
+    let { 
+      'Function': fn,
+      'Bytecode': code,
+      'Compiled?': compiled,
+      'Remarks': info
+    } = item
+
+    $table.append($(`
+      <tr${info && ` title="${info}"`}>
+        <td 
+          class="fn ${isSupported(compiled, true)}">
+          ${code || fn}
+        </td>
+        <td 
+          class="${isSupported(compiled)}${info && ' has-title'}">
+          <span>${compiled}</span>${info && ' ℹ️'}
+        </td>
+      </tr>
+    `))
+  })
+  
+  $body.append($table)
+})
+</script>
+</body>
+</html>
